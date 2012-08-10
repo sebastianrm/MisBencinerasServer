@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import cl.mobilLoyalty.MisBencinerasServer.data.dao.BencinasDao;
+import cl.mobilLoyalty.MisBencinerasServer.data.dao.UserTrx;
 import cl.mobilLoyalty.MisBencinerasServer.data.dto.Bencinas;
 
 /**
@@ -14,6 +15,20 @@ import cl.mobilLoyalty.MisBencinerasServer.data.dto.Bencinas;
  * 
  */
 public class CalculoCercania {
+
+	/**
+	 * 
+	 */
+	public static void registraTrx(Double latitud, Double longitud,
+			String ultanaje, String empresa, Double latempresa,
+			Double longempresa, String key) {
+
+		UserTrx userTrx = new UserTrx();
+
+		userTrx.insert(latitud, longitud, ultanaje, empresa, latempresa,
+				longempresa, key);
+
+	}
 
 	/**
 	 * @param args
@@ -28,13 +43,29 @@ public class CalculoCercania {
 
 		BencinasDao rlDAO = new BencinasDao();
 
-			HashSet<Bencinas> loadAll = rlDAO.selectLatLogCeroHash();
+		HashSet<Bencinas> loadAll = rlDAO.selectLatLogCeroHash();
 
-			System.out.println("ANTES lat del hash: " + loadAll.size());
-			arregloLocalesCercanos(lat, lng, loadAll,metros,ultanaje);
-			System.out.println("DESPUES Largo del hash: " + loadAll.size());
+		System.out.println("ANTES lat del hash: " + loadAll.size());
+		arregloLocalesCercanos(lat, lng, loadAll, metros, ultanaje);
+		System.out.println("DESPUES Largo del hash: " + loadAll.size());
 
-			return loadAll;
+		return loadAll;
+
+	}
+
+	public static HashSet<Bencinas> buscaAciertos(Double lat, Double lng) {
+
+		// re cupero una coneccion a la base de datos
+
+		// recupero todo
+
+		BencinasDao rlDAO = new BencinasDao();
+
+		HashSet<Bencinas> loadAll = rlDAO.selectServicentrosCercanas(lat, lng);
+
+		System.out.println("Largo del hash respuesta: " + loadAll.size());
+
+		return loadAll;
 
 	}
 
@@ -45,7 +76,7 @@ public class CalculoCercania {
 	 * @param loadAll
 	 */
 	private static void arregloLocalesCercanos(Double latitud, Double longitud,
-			HashSet<Bencinas> loadAll, Double metros,String ultanaje) {
+			HashSet<Bencinas> loadAll, Double metros, String ultanaje) {
 		// Creo arrglo con locales cercanos
 		Iterator<Bencinas> iterator = loadAll.iterator();
 
@@ -59,17 +90,18 @@ public class CalculoCercania {
 
 			if (next.getServiCentro().getGeoRef().getLatitud() != 0
 					&& next.getServiCentro().getGeoRef().getLongitud() != 0) {
-				
+
 				calcularVectorMovimiento = CalculoDistancia
-						.calcularVectorMovimiento(latitud, longitud, next.getServiCentro()
-								.getGeoRef().getLatitud(), next.getServiCentro().getGeoRef()
-								.getLongitud());
+						.calcularVectorMovimiento(latitud, longitud, next
+								.getServiCentro().getGeoRef().getLatitud(),
+								next.getServiCentro().getGeoRef().getLongitud());
 				next.setDistancia(calcularVectorMovimiento);
-				
+
 				// si no se encuentra en el rango, se quita del arrego
-				if (calcularVectorMovimiento > metros || !next.getDescripcion().equals(ultanaje.toString())) {
+				if (calcularVectorMovimiento > metros
+						|| !next.getDescripcion().equals(ultanaje.toString())) {
 					quitar.add(next);
-				}else{
+				} else {
 					System.out.println();
 				}
 			}

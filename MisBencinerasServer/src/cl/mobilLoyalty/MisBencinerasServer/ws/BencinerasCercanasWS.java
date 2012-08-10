@@ -21,11 +21,11 @@ import cl.mobilLoyalty.MisBencinerasServer.logic.CalculoCercania;
 public class BencinerasCercanasWS {
 
 	@GET
-	@Path("/cercana/{latitud}/{longitud}/{ultanaje}/{metros}")
+	@Path("/cercana/{latitud}/{longitud}/{ultanaje}/{metros}/{key}")
 	public HashSet<Bencinas> getPredictor(@PathParam("latitud") Double latitud,
 			@PathParam("longitud") Double longitud,
 			@PathParam("ultanaje") String ultanaje,
-			@PathParam("metros") Double metros) {
+			@PathParam("metros") Double metros, @PathParam("key") String key) {
 
 		ultanaje = ultanaje.replaceAll("%20", " ");
 		System.out.println("latitud:" + latitud + " longitud: " + longitud
@@ -37,5 +37,41 @@ public class BencinerasCercanasWS {
 		return buscaAciertos;
 
 	}
+
+	@GET
+	@Path("/cercana/{latitud}/{longitud}/{key}")
+	public HashSet<Bencinas> getPredictor(@PathParam("latitud") Double latitud,
+			@PathParam("longitud") Double longitud, @PathParam("key") String key) {
+
+		System.out.println("latitud:" + latitud + " longitud: ");
+
+		HashSet<Bencinas> buscaAciertos = CalculoCercania.buscaAciertos(
+				latitud, longitud);
+
+		return buscaAciertos;
+
+	}
+	
+	
+	@GET
+	@Path("/trx/{latitud}/{longitud}/{ultanaje}/{empresa}/{latempresa}/{longempresa}/{key}")
+	public void getPredictor(
+			@PathParam("latitud") Double latitud,
+			@PathParam("longitud") Double longitud,
+			@PathParam("ultanaje") String ultanaje,
+			@PathParam("empresa") String empresa,
+			@PathParam("latempresa") Double latempresa,
+			@PathParam("longempresa") Double longempresa,
+			@PathParam("key") String key) {
+
+		ultanaje = ultanaje.replaceAll("%20", " ");
+		System.out.println("latitud:" + latitud + " longitud: " + longitud
+				+ " ultanaje: " + ultanaje + " empresa: " + empresa);
+
+		CalculoCercania.registraTrx(latitud, longitud, ultanaje, empresa,latempresa,longempresa,key);
+
+
+	}
+	
 
 }

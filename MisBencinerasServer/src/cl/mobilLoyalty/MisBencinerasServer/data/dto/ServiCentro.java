@@ -20,6 +20,8 @@ public class ServiCentro {
 
 	private Region region;
 
+	private Float distancia = new Float(0);
+	
 	public Region getRegion() {
 		return region;
 	}
@@ -60,15 +62,26 @@ public class ServiCentro {
 		this.geoRef = geoRef;
 	}
 
+	public Float getDistancia() {
+		return distancia;
+	}
+
+	public void setDistancia(Float distancia) {
+		this.distancia = distancia;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
+				+ ((Bencinas == null) ? 0 : Bencinas.hashCode());
+		result = prime * result
 				+ ((direccion == null) ? 0 : direccion.hashCode());
+		result = prime * result
+				+ ((distancia == null) ? 0 : distancia.hashCode());
 		result = prime * result + ((empresa == null) ? 0 : empresa.hashCode());
 		result = prime * result + ((geoRef == null) ? 0 : geoRef.hashCode());
-		result = prime * result + ((region == null) ? 0 : region.hashCode());
 		return result;
 	}
 
@@ -81,10 +94,20 @@ public class ServiCentro {
 		if (getClass() != obj.getClass())
 			return false;
 		ServiCentro other = (ServiCentro) obj;
+		if (Bencinas == null) {
+			if (other.Bencinas != null)
+				return false;
+		} else if (!Bencinas.equals(other.Bencinas))
+			return false;
 		if (direccion == null) {
 			if (other.direccion != null)
 				return false;
 		} else if (!direccion.equals(other.direccion))
+			return false;
+		if (distancia == null) {
+			if (other.distancia != null)
+				return false;
+		} else if (!distancia.equals(other.distancia))
 			return false;
 		if (empresa == null) {
 			if (other.empresa != null)
@@ -96,12 +119,18 @@ public class ServiCentro {
 				return false;
 		} else if (!geoRef.equals(other.geoRef))
 			return false;
-		if (region == null) {
-			if (other.region != null)
-				return false;
-		} else if (!region.equals(other.region))
-			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ServiCentro [empresa=" + empresa + ", direccion=" + direccion
+				+ ", geoRef=" + geoRef + ", Bencinas=" + Bencinas + ", region="
+				+ region + ", distancia=" + distancia + "]";
+	}
+
+	
+	
+	
 
 }
