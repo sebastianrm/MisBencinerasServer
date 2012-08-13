@@ -129,14 +129,14 @@ public class BencinasDao extends ConnectionDAO {
 				bs.setPrecios(rs.getFloat("precio"));
 
 				ServiCentro serviCentro = new ServiCentro();
-				serviCentro.setEmpresa(rs.getString("empresa"));
-				serviCentro.setDireccion(rs.getString("direccion"));
+				serviCentro.setEmpresa(rs.getString("fkempresa"));
+				serviCentro.setDireccion(rs.getString("fkdireccion"));
 				serviCentro.setDistancia(rs.getFloat("distancia"));
 
 				GeoReferencia geoReferencia = new GeoReferencia();
 
-				geoReferencia.setLatitud(rs.getFloat("latitud"));
-				geoReferencia.setLongitud(rs.getFloat("longitud"));
+				geoReferencia.setLatitud(rs.getFloat("fklatitud"));
+				geoReferencia.setLongitud(rs.getFloat("fklongitud"));
 
 				Region region = new Region();
 				region.setNombre(rs.getString("fkregion"));

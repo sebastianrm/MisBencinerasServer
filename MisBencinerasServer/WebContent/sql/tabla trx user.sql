@@ -7,5 +7,8 @@ CREATE TABLE `trxuser` (
   `latUser` float NOT NULL,
   `longUser` float NOT NULL,
   `fecha_hora_consulta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `precio` float DEFAULT NULL,
+  `distancia` float DEFAULT NULL,
   PRIMARY KEY (`fecha_hora_consulta`,`longUser`,`latUser`,`key`,`empresa`,`bencina`,`latBencinera`,`longBencinera`)
 ) ENGINE=InnoDB;
+

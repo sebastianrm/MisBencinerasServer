@@ -9,12 +9,13 @@ import cl.mobilLoyalty.MisBencinerasServer.data.ConnectionDAO;
 
 public class UserTrx extends ConnectionDAO {
 
-	private String SQL_INSERT = "INSERT INTO `bencineras`.`trxuser` (`bencina`,`empresa`,`latBencinera`,`longBencinera`,`key`,`latUser`,`longUser`,`fecha_hora_consulta`) VALUES (bencina=?,empresa=?,latBencinera=?,longBencinera=?,key=?,latUser=?,longUser=?,fecha_hora_consulta=?)";
+	private String SQL_INSERT = "INSERT INTO `bencineras`.`trxuser` (`bencina`,`empresa`,`latBencinera`,`longBencinera`,`key`,`latUser`,`longUser`,`fecha_hora_consulta`,precio,distancia) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 	public void insert(Double latitud, Double longitud, String ultanaje,
-			String empresa, Double latempresa, Double longempresa, String key) {
+			String empresa, Double latempresa, Double longempresa,Double precio, Double distancia, String key) {
 
 		Connection conn = null;
+		
 		PreparedStatement ps = null;
 		try {
 			conn = super.getConnectionMySql();
@@ -28,9 +29,13 @@ public class UserTrx extends ConnectionDAO {
 			ps.setString(5, key);
 			ps.setDouble(6, latitud);
 			ps.setDouble(7, longitud);
-
+			
 			ps.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
-
+			
+			ps.setDouble(9, precio);
+			ps.setDouble(10, distancia);
+			
+			
 			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

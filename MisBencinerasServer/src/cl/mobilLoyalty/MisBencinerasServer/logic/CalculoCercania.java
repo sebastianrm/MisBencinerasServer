@@ -26,7 +26,7 @@ public class CalculoCercania {
 		UserTrx userTrx = new UserTrx();
 
 		userTrx.insert(latitud, longitud, ultanaje, empresa, latempresa,
-				longempresa, key);
+				longempresa,0.0,0.0, key);
 
 	}
 
@@ -53,7 +53,7 @@ public class CalculoCercania {
 
 	}
 
-	public static HashSet<Bencinas> buscaAciertos(Double lat, Double lng) {
+	public static HashSet<Bencinas> buscaAciertos(Double lat, Double lng,String key) {
 
 		// re cupero una coneccion a la base de datos
 
@@ -62,6 +62,14 @@ public class CalculoCercania {
 		BencinasDao rlDAO = new BencinasDao();
 
 		HashSet<Bencinas> loadAll = rlDAO.selectServicentrosCercanas(lat, lng);
+		
+		/**
+		 * guardamos consulta
+		 */
+		
+		UserTrx userTrx = new UserTrx();
+		
+		userTrx.insert(lat, lng, "TODOS", "TODAS", 0.0,0.0,0.0,0.0, key);
 
 		System.out.println("Largo del hash respuesta: " + loadAll.size());
 
@@ -109,6 +117,16 @@ public class CalculoCercania {
 		System.out.println("Cantidad a quitar: " + quitar.size());
 		loadAll.removeAll(quitar);
 
+	}
+
+	public static void registraTrx(Double latitud, Double longitud,
+			String ultanaje, String empresa, Double latempresa,
+			Double longempresa, Double precio, Double distancia, String key) {
+		UserTrx userTrx = new UserTrx();
+
+		userTrx.insert(latitud, longitud, ultanaje, empresa, latempresa,
+				longempresa,precio,distancia,key);
+		
 	}
 
 }

@@ -43,20 +43,19 @@ public class BencinerasCercanasWS {
 	public HashSet<Bencinas> getPredictor(@PathParam("latitud") Double latitud,
 			@PathParam("longitud") Double longitud, @PathParam("key") String key) {
 
-		System.out.println("latitud:" + latitud + " longitud: ");
+		System.out.println("latitud:" + latitud + " longitud: " + longitud
+				+ " key: " + key);
 
 		HashSet<Bencinas> buscaAciertos = CalculoCercania.buscaAciertos(
-				latitud, longitud);
+				latitud, longitud, key);
 
 		return buscaAciertos;
 
 	}
-	
-	
+
 	@GET
 	@Path("/trx/{latitud}/{longitud}/{ultanaje}/{empresa}/{latempresa}/{longempresa}/{key}")
-	public void getPredictor(
-			@PathParam("latitud") Double latitud,
+	public void getPredictor(@PathParam("latitud") Double latitud,
 			@PathParam("longitud") Double longitud,
 			@PathParam("ultanaje") String ultanaje,
 			@PathParam("empresa") String empresa,
@@ -68,10 +67,46 @@ public class BencinerasCercanasWS {
 		System.out.println("latitud:" + latitud + " longitud: " + longitud
 				+ " ultanaje: " + ultanaje + " empresa: " + empresa);
 
-		CalculoCercania.registraTrx(latitud, longitud, ultanaje, empresa,latempresa,longempresa,key);
-
+		CalculoCercania.registraTrx(latitud, longitud, ultanaje, empresa,
+				latempresa, longempresa, key);
 
 	}
-	
+
+	@GET
+	@Path("/trx/{latitud}/{longitud}/{ultanaje}/{empresa}/{latempresa}/{longempresa}/{precio}/{distancia}/{key}")
+	public void getPredictor(@PathParam("latitud") Double latitud,
+			@PathParam("longitud") Double longitud,
+			@PathParam("ultanaje") String ultanaje,
+			@PathParam("empresa") String empresa,
+			@PathParam("latempresa") Double latempresa,
+			@PathParam("longempresa") Double longempresa,
+			@PathParam("precio") Double precio,
+			@PathParam("distancia") Double distancia,
+			@PathParam("key") String key) {
+
+		ultanaje = ultanaje.replaceAll("%20", " ");
+		System.out.println("latitud:" + latitud + " longitud: " + longitud
+				+ " ultanaje: " + ultanaje + " empresa: " + empresa+" precio: "+precio+ " distancia:"+distancia);
+
+		CalculoCercania.registraTrx(latitud, longitud, ultanaje, empresa,
+				latempresa, longempresa,precio,distancia,key);
+
+	}
+
+	@GET
+	@Path("/trx/{latitud}/{longitud}/{ultanaje}/{empresa}/{key}")
+	public void getPredictor(@PathParam("latitud") Double latitud,
+			@PathParam("longitud") Double longitud,
+			@PathParam("ultanaje") String ultanaje,
+			@PathParam("empresa") String empresa, @PathParam("key") String key) {
+
+		ultanaje = ultanaje.replaceAll("%20", " ");
+		System.out.println("latitud:" + latitud + " longitud: " + longitud
+				+ " ultanaje: " + ultanaje + " empresa: " + empresa);
+
+		CalculoCercania.registraTrx(latitud, longitud, ultanaje, empresa, 0.0,
+				0.0, key);
+
+	}
 
 }
