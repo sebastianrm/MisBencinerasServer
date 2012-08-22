@@ -9,7 +9,7 @@ import cl.mobilLoyalty.MisBencinerasServer.data.ConnectionDAO;
 
 public class UserTrx extends ConnectionDAO {
 
-	private String SQL_INSERT = "INSERT INTO `bencineras`.`trxuser` (`bencina`,`empresa`,`latBencinera`,`longBencinera`,`key`,`latUser`,`longUser`,`fecha_hora_consulta`,precio,distancia) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private String SQL_INSERT = "INSERT INTO trxuser (bencina,empresa,latBencinera,longBencinera,[key],latUser,longUser,fecha_hora_consulta,precio,distancia) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 	public void insert(Double latitud, Double longitud, String ultanaje,
 			String empresa, Double latempresa, Double longempresa,Double precio, Double distancia, String key) {

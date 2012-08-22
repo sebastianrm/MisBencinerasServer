@@ -17,7 +17,7 @@ public class ServiCentroDao extends ConnectionDAO {
 
 	private static final String SQL_INSERT = "INSERT INTO servicentros (empresa,direccion,latitud,longitud,fkregion) values (?,?,?,?,?)";
 	private static final String SQL_SELECT_ALL = "SELECT empresa,direccion,latitud,longitud,fkregion FROM servicentros";
-	private static final String SQL_UPDATE = "UPDATE bencineras.servicentros SET latitud = ?, longitud = ? WHERE empresa = ? AND direccion = ? AND fkregion = ?";
+	private static final String SQL_UPDATE = "UPDATE servicentros SET latitud = ?, longitud = ? WHERE empresa = ? AND direccion = ? AND fkregion = ?";
 	private static final String SQL_SELECT_BY_LAT_LONG = "SELECT empresa,direccion,latitud,longitud,fkregion FROM servicentros where latitud <> ? and longitud <> ?";
 	public void insert(ServiCentro sc) {
 

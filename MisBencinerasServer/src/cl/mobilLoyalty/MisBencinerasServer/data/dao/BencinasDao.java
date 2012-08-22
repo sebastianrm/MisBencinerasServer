@@ -18,7 +18,7 @@ public class BencinasDao extends ConnectionDAO {
 
 	private static final String SQL_CRUZE_PRECIO_SERV = "SELECT s.empresa,s.direccion,s.latitud,s.longitud,s.fkregion,p.fkbencina,p.precio,p.fecha_actualizacion FROM servicentros s inner join precios p on (p.fkempresa = s.empresa and p.fkdireccion = s.direccion and p.fkregion = s.fkregion)  where s.latitud <> ? and s.longitud <> ?";
 
-	private String SQL_EMPRESAS_MAXIMA_DISTANCIA = "select `dist`.distancia,`dist`.precio,`dist`.fkbencina,`dist`.fkempresa,`dist`.fkdireccion,`dist`.fkregion,`dist`.fecha_actualizacion,`dist`.fklatitud,`dist`.fklongitud from 	(	select 	SQRT(POW((ABS(fklatitud)-(ABS(?)))*1852*60,2) + POW((ABS(fklongitud)-(ABS(?)))*1852*60,2)) as distancia,`precios`.`precio`,	`precios`.`fkbencina`, `precios`.`fkempresa`, `precios`.`fkdireccion`,	`precios`.`fkregion`,	`precios`.`fecha_actualizacion`,	`precios`.`fklatitud`,	`precios`.`fklongitud` from bencineras.precios ) dist where dist.distancia <= 7000 order by `dist`.precio asc";
+	private String SQL_EMPRESAS_MAXIMA_DISTANCIA = "select dist.distancia,dist.precio,dist.fkbencina,dist.fkempresa,dist.fkdireccion,dist.fkregion,dist.fecha_actualizacion,dist.fklatitud,dist.fklongitud from 	(	select 	SQRT(POWER((ABS(fklatitud)-(ABS(?)))*1852*60,2) + POWER((ABS(fklongitud)-(ABS(?)))*1852*60,2)) as distancia,precios.precio,	precios.fkbencina, precios.fkempresa, precios.fkdireccion,	precios.fkregion,	precios.fecha_actualizacion,	precios.fklatitud,	precios.fklongitud from precios ) dist where dist.distancia <= 7000 order by dist.precio asc";
 
 	public void insert(Bencinas bencinas) {
 
