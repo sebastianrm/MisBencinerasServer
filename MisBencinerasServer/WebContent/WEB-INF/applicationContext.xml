@@ -23,10 +23,17 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	<jaxrs:serviceBeans>
 		<ref bean="cercania"/>
 	</jaxrs:serviceBeans>
+    <jaxrs:inInterceptors>
+       <bean class="org.apache.cxf.jaxrs.provider.jsonp.JsonpInInterceptor"/>
+    </jaxrs:inInterceptors>
+    <jaxrs:outInterceptors>
+       <bean class="org.apache.cxf.jaxrs.provider.jsonp.JsonpPreStreamInterceptor"/>
+       <bean class="org.apache.cxf.jaxrs.provider.jsonp.JsonpPostStreamInterceptor"/>
+    </jaxrs:outInterceptors> 
 </jaxrs:server>
 
 
-<bean id="cercania" class=" cl.mobilLoyalty.MisBencinerasServer.ws.BencinerasCercanasWS"/>
+<bean id="cercania" class="cl.mobilLoyalty.MisBencinerasServer.ws.BencinerasCercanasWS"/>
 
 
 </beans>
