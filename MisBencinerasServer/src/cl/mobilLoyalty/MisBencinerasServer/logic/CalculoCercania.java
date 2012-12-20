@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import cl.mobilLoyalty.MisBencinerasServer.data.dao.BencinasDao;
+import cl.mobilLoyalty.MisBencinerasServer.data.dao.LocalesDao;
 import cl.mobilLoyalty.MisBencinerasServer.data.dao.UserTrx;
 import cl.mobilLoyalty.MisBencinerasServer.data.dto.Bencinas;
 
@@ -34,7 +35,7 @@ public class CalculoCercania {
 	 * @param args
 	 */
 
-	public static HashSet<Bencinas> buscaAciertos(Double lat, Double lng,
+	public static HashSet<Bencinas> buscaAciertosBencineras(Double lat, Double lng,
 			String ultanaje, Double metros) {
 
 		// re cupero una coneccion a la base de datos
@@ -52,8 +53,40 @@ public class CalculoCercania {
 		return loadAll;
 
 	}
+	/**
+	 * 
+	 * @param lat
+	 * @param lng
+	 * @param key 
+	 * @param empresa
+	 * @param metros
+	 * @return
+	 */
+	public static HashSet<SuperLocales> buscaAciertosSupermercados(Double lat, Double lng, String key) {
 
-	public static HashSet<Bencinas> buscaAciertos(Double lat, Double lng,String key) {
+		// re cupero una coneccion a la base de datos
+
+		// recupero todo
+
+		LocalesDao rlDAO = new LocalesDao();
+
+		HashSet<SuperLocales> loadAll = rlDAO.selectSuperCercanas(lat,lng);
+
+		/**
+		 * guardamos consulta
+		 */
+		
+		UserTrx userTrx = new UserTrx();
+		
+		userTrx.insert(lat, lng, "TODOS", "TODAS", 0.0,0.0,0.0,0.0, "buscaAciertosSupermercados");
+
+		System.out.println("Largo del hash respuesta: " + loadAll.size());
+
+		return loadAll;
+
+	}
+
+	public static HashSet<Bencinas> buscaAciertoBencineras(Double lat, Double lng,String key) {
 
 		// re cupero una coneccion a la base de datos
 

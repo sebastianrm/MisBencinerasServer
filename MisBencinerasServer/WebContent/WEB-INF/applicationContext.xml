@@ -35,5 +35,4 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 
 <bean id="cercania" class="cl.mobilLoyalty.MisBencinerasServer.ws.BencinerasCercanasWS"/>
 
-
 </beans>
